@@ -2,28 +2,47 @@
 
 #pragma once
 
-#include <list>
 #include <stdexcept>
+#include "Node.h"
+
+class Node;
 
 template <typename T>
 class Stack 
 {
 private:
-    std::list<T> elements;
+    Node<T>* top;
 
 public:
+    Stack() 
+    : top(nullptr) 
+    {
+    }
+
+    ~Stack() 
+    {
+        while (!isEmpty()) 
+        {
+            pop(); // Remove all lingering elements in stack
+        }
+    }
+
     // Function to push a new element onto the stack
     void push(const T& value) 
     {
-        elements.push_back(value);
+        Node<T>* newNode = new Node<T>(value);
+        newNode->next = top;
+        top = newNode;
     }
 
     // Function to pop the top element from the stack
-    void pop() 
+    T pop() 
     {
         if (!isEmpty()) 
         {
-            elements.pop_back();
+            Node<T>* temp = top;
+            top = top->next;
+            return temp;
         } 
         else 
         {
@@ -36,7 +55,7 @@ public:
     {
         if (!isEmpty()) 
         {
-            return elements.back();
+            return top->data;
         } 
         else 
         {
@@ -47,12 +66,19 @@ public:
     // Function to check if the stack is empty
     bool isEmpty() const 
     {
-        return elements.empty();
+        return top == nullptr;
     }
 
     // Function to get the current size of the stack
     size_t size() const 
     {
-        return elements.size();
+        size_t count = 0;
+        Node<T>* current = top;
+        while (current != nullptr) 
+        {
+            count++;
+            current = current->next;
+        }
+        return count;
     }
 };
