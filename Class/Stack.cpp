@@ -22,7 +22,6 @@ void Stack::push(const T& value)
     top = newNode;
 }
 
-template<typename T>
 T Stack::pop()
 {
     if (!isEmpty()) 
@@ -37,7 +36,6 @@ T Stack::pop()
     }
 }
 
-template<typename T>
 T Stack::peek() const
 {
     if (!isEmpty()) 
