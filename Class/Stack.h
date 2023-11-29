@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include "Node.h"
 
-class Node;
-
 template <typename T>
 class Stack 
 {
